@@ -41,4 +41,14 @@ public class UserService {
 
         userRepository.save(user);
     }
+
+    public Integer checkEmail(String email) {
+
+        Optional<Integer> countUsers = userRepository.countUserByEmail(email);
+
+        if (countUsers.get() != 0) {throw new IllegalStateException("Email Taken");}
+
+        return countUsers.get();
+
+    }
 }
