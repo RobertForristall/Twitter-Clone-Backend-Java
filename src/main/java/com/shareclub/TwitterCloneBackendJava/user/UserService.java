@@ -44,11 +44,15 @@ public class UserService {
 
     public Integer checkEmail(String email) {
 
-        Optional<Integer> countUsers = userRepository.countUserByEmail(email);
+        Optional<User> checkForUser = userRepository.findUserByEmail(email);
 
-        if (countUsers.get() != 0) {throw new IllegalStateException("Email Taken");}
+        System.out.println(checkForUser.isPresent());
 
-        return countUsers.get();
+        if (checkForUser.isPresent()){
+            throw new IllegalStateException("Email taken! Please use a different email or sign in with your existing email.");
+        }
+
+        return 1;
 
     }
 }
