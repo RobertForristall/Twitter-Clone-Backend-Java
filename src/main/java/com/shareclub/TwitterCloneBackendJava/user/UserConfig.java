@@ -15,7 +15,6 @@ public class UserConfig {
         return args -> {
             User new_user = new User(
                 "tester@test.com",
-
                 "Tester Testington",
                     LocalDate.of(1994, Month.JANUARY, 7),
                     true,
