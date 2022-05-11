@@ -8,6 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,8 +20,10 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
+    private final PasswordEncoder passwordEncoder;
+
     @Autowired
-    public UserService(UserRepository userRepository) {this.userRepository = userRepository;}
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {this.userRepository = userRepository; this.passwordEncoder = passwordEncoder;}
 
 
     public User loginUser(String email, String pass) {
@@ -53,6 +56,8 @@ public class UserService implements UserDetailsService {
             throw new IllegalStateException("Please enter a valid password");
         }
 
+        user.setPass(passwordEncoder.encode(user.getPass()));
+
         log.info("Saving User...");
         userRepository.save(user);
 
@@ -78,6 +83,8 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
         Role base_role = new Role(1, "ROLE_USER");
+
+        log.info(email);
 
         Optional<User> user = userRepository.findUserByEmail(email);
         if (user.isEmpty()){

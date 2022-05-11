@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "*")
 @RequestMapping(path="api/v1/user")
 public class UserController {
 
@@ -13,12 +12,12 @@ public class UserController {
     @Autowired
     public UserController(UserService userService) { this.userService = userService;}
 
-    @GetMapping
-    public User loginUser(@RequestParam String email, @RequestParam String pass) {return userService.loginUser(email, pass);}
+    //@PostMapping(path = "login")
+    //public User loginUser(@RequestBody User user) {return userService.loginUser(user.getEmail(), user.getPass());}
 
     @GetMapping(path = "emailCheck")
     public Integer checkForEmail(@RequestParam String email) {return userService.checkEmail(email);}
 
-    @PostMapping
+    @PostMapping(path = "signup")
     public void registerUser(@RequestBody User user) {userService.signupUser(user);}
 }

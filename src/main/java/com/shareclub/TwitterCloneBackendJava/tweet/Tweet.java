@@ -1,6 +1,7 @@
 package com.shareclub.TwitterCloneBackendJava.tweet;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table
@@ -27,15 +28,21 @@ public class Tweet {
 
     private  Integer retweets;
 
+    private Date date_posted;
+
+    private String original_poster;
+
     public Tweet() {
     }
 
-    public Tweet(String email, String msg, String shared_content, int likes, int retweets) {
+    public Tweet(String email, String msg, String shared_content, int likes, int retweets, Date date_posted, String original_poster) {
         this.email = email;
         this.msg = msg;
         this.shared_content = shared_content;
         this.likes = likes;
         this.retweets = retweets;
+        this.date_posted = date_posted;
+        this.original_poster = original_poster;
     }
 
     public long getId() {
@@ -80,5 +87,21 @@ public class Tweet {
 
     public void setRetweets(Integer retweets) {
         this.retweets = retweets;
+    }
+
+    public Date getDate_posted() {
+        return date_posted;
+    }
+
+    public void setDate_posted(Date date_posted) {
+        this.date_posted = date_posted;
+    }
+
+    public String getOriginal_poster() {
+        return original_poster;
+    }
+
+    public void setOriginal_poster(String original_poster) {
+        this.original_poster = original_poster;
     }
 }
