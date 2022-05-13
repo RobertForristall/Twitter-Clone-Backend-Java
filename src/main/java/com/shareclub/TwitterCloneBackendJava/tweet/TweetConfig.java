@@ -13,16 +13,18 @@ public class TweetConfig {
     CommandLineRunner commandLineRunnerTweet(TweetRepository tweetRepository) {
         return args -> {
             Tweet tweet = new Tweet(
-              "tester@test.com",
+              1,
               "This is a test tweet!",
-              "Picture",
+              "None",
               0,
               0,
               new Date(),
-              "tester@test.com"
+              1,
+                    "testing@test.com"
             );
 
             tweetRepository.save(tweet);
+
         };
     }
 }

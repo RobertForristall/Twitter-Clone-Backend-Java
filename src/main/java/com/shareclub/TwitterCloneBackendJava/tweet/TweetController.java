@@ -18,6 +18,9 @@ public class TweetController {
     @GetMapping(path = "all")
     public List<Tweet> getAllTweets() {return tweetService.getAllTweets();}
 
+    @GetMapping(path = "id")
+    public List<Tweet> getAllTweetsByPoster_id(@RequestParam long id) {return tweetService.getAllTweetsByPoster_id(id);}
+
     @GetMapping(path = "email")
     public List<Tweet> getAllTweetsByEmail(@RequestParam String email) {return tweetService.getAllTweetsByEmail(email);}
 

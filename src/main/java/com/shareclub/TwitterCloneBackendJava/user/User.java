@@ -3,6 +3,7 @@ package com.shareclub.TwitterCloneBackendJava.user;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 
 @Entity
 @Table

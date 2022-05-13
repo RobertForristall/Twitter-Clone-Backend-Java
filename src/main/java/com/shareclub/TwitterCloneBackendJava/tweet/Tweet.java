@@ -18,44 +18,43 @@ public class Tweet {
     )
     private long id;
 
+    private long posterId;
+
     private String email;
 
     private String msg;
 
-    private String shared_content;
+    private String sharedContent;
 
     private Integer likes;
 
     private  Integer retweets;
 
-    private Date date_posted;
+    private Date datePosted;
 
-    private String original_poster;
+    private long originalPosterId;
 
     public Tweet() {
     }
 
-    public Tweet(String email, String msg, String shared_content, int likes, int retweets, Date date_posted, String original_poster) {
-        this.email = email;
+    public Tweet(long posterId, String msg, String sharedContent, int likes, int retweets, Date datePosted, long original_poster, String email) {
+        this.posterId = posterId;
         this.msg = msg;
-        this.shared_content = shared_content;
+        this.sharedContent = sharedContent;
         this.likes = likes;
         this.retweets = retweets;
-        this.date_posted = date_posted;
-        this.original_poster = original_poster;
+        this.datePosted = datePosted;
+        this.originalPosterId = original_poster;
+        this.email = email;
     }
 
     public long getId() {
         return id;
     }
 
-    public String getEmail() {
-        return email;
-    }
+    public long getPosterId() {return this.posterId; }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    public  void setPosterId(long posterId) {this.posterId = posterId;}
 
     public String getMsg() {
         return msg;
@@ -65,12 +64,12 @@ public class Tweet {
         this.msg = msg;
     }
 
-    public String getShared_content() {
-        return shared_content;
+    public String getSharedContent() {
+        return sharedContent;
     }
 
-    public void setShared_content(String shared_content) {
-        this.shared_content = shared_content;
+    public void setSharedContent(String sharedContent) {
+        this.sharedContent = sharedContent;
     }
 
     public Integer getLikes() {
@@ -89,19 +88,41 @@ public class Tweet {
         this.retweets = retweets;
     }
 
-    public Date getDate_posted() {
-        return date_posted;
+    public Date getDatePosted() {
+        return datePosted;
     }
 
-    public void setDate_posted(Date date_posted) {
-        this.date_posted = date_posted;
+    public void setDatePosted(Date datePosted) {
+        this.datePosted = datePosted;
     }
 
-    public String getOriginal_poster() {
-        return original_poster;
+    public long getOriginalPoster() {
+        return originalPosterId;
     }
 
-    public void setOriginal_poster(String original_poster) {
-        this.original_poster = original_poster;
+    public void setOriginalPoster(long original_poster) {
+        this.originalPosterId = original_poster;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "Tweet{" +
+                "id=" + id +
+                ", posterId=" + posterId +
+                ", msg='" + msg + '\'' +
+                ", sharedContent='" + sharedContent + '\'' +
+                ", likes=" + likes +
+                ", retweets=" + retweets +
+                ", datePosted=" + datePosted +
+                ", originalPosterId=" + originalPosterId +
+                '}';
     }
 }

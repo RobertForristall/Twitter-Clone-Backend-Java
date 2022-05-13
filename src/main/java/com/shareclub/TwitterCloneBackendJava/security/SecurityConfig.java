@@ -1,6 +1,7 @@
 package com.shareclub.TwitterCloneBackendJava.security;
 
 import com.shareclub.TwitterCloneBackendJava.filter.CustomAuthFilter;
+import com.shareclub.TwitterCloneBackendJava.filter.CustomAuthorizationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -42,13 +44,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().configurationSource(corsConfigurationSource());
 
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/v1/user/signup").permitAll();
-        http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/v1/user/login").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/v1/user/emailCheck").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/v1/tweet/**").hasAuthority("ROLE_USER");
 
-        http.authorizeRequests().anyRequest().permitAll();
+        http.authorizeRequests().anyRequest().authenticated();
 
         http.addFilter(customAuthFilter);
+        http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
 
 
     }

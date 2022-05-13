@@ -20,4 +20,5 @@ public class UserController {
 
     @PostMapping(path = "signup")
     public void registerUser(@RequestBody User user) {userService.signupUser(user);}
+
 }

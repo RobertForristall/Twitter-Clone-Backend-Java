@@ -9,6 +9,8 @@ import java.util.Optional;
 @Repository
 public interface TweetRepository extends JpaRepository<Tweet, Long> {
 
+    Optional<List<Tweet>> findAllByPosterId(long poster_id);
+
     Optional<List<Tweet>> findAllByEmail(String email);
 
 }
