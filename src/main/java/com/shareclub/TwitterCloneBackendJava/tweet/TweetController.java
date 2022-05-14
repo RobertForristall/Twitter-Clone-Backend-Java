@@ -21,7 +21,8 @@ public class TweetController {
     @GetMapping(path = "id")
     public List<Tweet> getAllTweetsByPoster_id(@RequestParam long id) {return tweetService.getAllTweetsByPoster_id(id);}
 
-    @GetMapping(path = "email")
+    @GetMapping(path = "email", produces = "application/json")
+    @ResponseBody
     public List<Tweet> getAllTweetsByEmail(@RequestParam String email) {return tweetService.getAllTweetsByEmail(email);}
 
     @PostMapping(path = "add")

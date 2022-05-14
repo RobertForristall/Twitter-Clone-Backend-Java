@@ -1,5 +1,7 @@
 package com.shareclub.TwitterCloneBackendJava.tweet;
 
+import com.shareclub.TwitterCloneBackendJava.user.User;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -18,7 +20,7 @@ public class Tweet {
     )
     private long id;
 
-    private long posterId;
+    //private long posterId;
 
     private String email;
 
@@ -34,11 +36,16 @@ public class Tweet {
 
     private long originalPosterId;
 
+    @ManyToOne
+    @JoinColumn(name = "posterId")
+    private User user;
+
+
     public Tweet() {
     }
 
     public Tweet(long posterId, String msg, String sharedContent, int likes, int retweets, Date datePosted, long original_poster, String email) {
-        this.posterId = posterId;
+        //this.posterId = posterId;
         this.msg = msg;
         this.sharedContent = sharedContent;
         this.likes = likes;
@@ -52,9 +59,9 @@ public class Tweet {
         return id;
     }
 
-    public long getPosterId() {return this.posterId; }
+    //public long getPosterId() {return this.posterId; }
 
-    public  void setPosterId(long posterId) {this.posterId = posterId;}
+    //public  void setPosterId(long posterId) {this.posterId = posterId;}
 
     public String getMsg() {
         return msg;
@@ -116,7 +123,7 @@ public class Tweet {
     public String toString() {
         return "Tweet{" +
                 "id=" + id +
-                ", posterId=" + posterId +
+                //", posterId=" + posterId +
                 ", msg='" + msg + '\'' +
                 ", sharedContent='" + sharedContent + '\'' +
                 ", likes=" + likes +

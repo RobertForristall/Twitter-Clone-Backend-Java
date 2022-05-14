@@ -1,8 +1,11 @@
 package com.shareclub.TwitterCloneBackendJava.user;
 
+import com.shareclub.TwitterCloneBackendJava.tweet.Tweet;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -35,6 +38,9 @@ public class User {
 
     @Column(nullable = false)
     private String pass;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Tweet> tweets = new ArrayList<>();
 
     @Transient
     private Integer age;

@@ -31,6 +31,9 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class CustomAuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+
+        log.info("Checking Authorization...");
+
         if (request.getServletPath().equals("/api/v1/user/login")){
             filterChain.doFilter(request, response);
         } else {
@@ -51,7 +54,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                     UsernamePasswordAuthenticationToken authenticationToken =
                             new UsernamePasswordAuthenticationToken(email, null, authorities);
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-                    filterChain.doFilter(request, response);
+                    //filterChain.doFilter(request, response);
                 } catch (Exception exception) {
                     log.error("Error logging in: {}", exception.getMessage());
                     //response.sendError(FORBIDDEN.value());

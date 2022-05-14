@@ -20,7 +20,7 @@ public class TweetConfig {
               0,
               new Date(),
               1,
-                    "testing@test.com"
+                    "tester@test.com"
             );
 
             tweetRepository.save(tweet);
