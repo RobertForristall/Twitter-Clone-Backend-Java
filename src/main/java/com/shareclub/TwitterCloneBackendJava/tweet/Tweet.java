@@ -1,5 +1,6 @@
 package com.shareclub.TwitterCloneBackendJava.tweet;
 
+import com.shareclub.TwitterCloneBackendJava.image.Image;
 import com.shareclub.TwitterCloneBackendJava.user.User;
 
 import javax.persistence.*;
@@ -24,6 +25,7 @@ public class Tweet {
 
     private String email;
 
+    @Column(length = 1000)
     private String msg;
 
     private String sharedContent;
@@ -39,6 +41,9 @@ public class Tweet {
     @ManyToOne
     @JoinColumn(name = "posterId")
     private User user;
+
+    @OneToOne(mappedBy = "tweet", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Image image;
 
 
     public Tweet() {
