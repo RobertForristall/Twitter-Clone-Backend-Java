@@ -1,5 +1,6 @@
 package com.shareclub.TwitterCloneBackendJava.tweet;
 
+import com.shareclub.TwitterCloneBackendJava.s3.S3;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,8 @@ import java.util.Optional;
 public class TweetService {
 
     private final TweetRepository tweetRepository;
+
+    private final static S3 s3 = new S3();
 
     @Autowired
     public TweetService(TweetRepository tweetRepository) { this.tweetRepository = tweetRepository;}
