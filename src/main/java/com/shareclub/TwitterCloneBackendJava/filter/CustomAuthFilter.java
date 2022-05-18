@@ -5,7 +5,9 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.hash.Hashing;
 import com.shareclub.TwitterCloneBackendJava.emailPass.EmailPass;
+import com.shareclub.TwitterCloneBackendJava.tweet.TweetService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,6 +32,8 @@ import java.util.stream.Collectors;
 public class CustomAuthFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
+
+
 
     public CustomAuthFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
@@ -76,11 +80,14 @@ public class CustomAuthFilter extends UsernamePasswordAuthenticationFilter {
         //response.setHeader("access_token", accessToken);
         //response.setHeader("refresh_token", refreshToken);
 
+
+
         Map<String, String> tokens = new HashMap<>();
         tokens.put("access_token", accessToken);
         tokens.put("refresh_token", refreshToken);
 
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         new ObjectMapper().writeValue(response.getOutputStream(), tokens);
+
     }
 }

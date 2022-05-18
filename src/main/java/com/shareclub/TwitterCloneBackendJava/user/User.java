@@ -1,3 +1,7 @@
+/*
+* Written by Robert Forristall
+* */
+
 package com.shareclub.TwitterCloneBackendJava.user;
 
 import com.shareclub.TwitterCloneBackendJava.tweet.Tweet;
@@ -8,6 +12,29 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+* User class used to create a table in database
+*
+* Attributes:
+* - Id: long, used as the primary key of the table
+* - email: String, Unique, NotNull
+* - name: String, NotNull
+* - dob: Date, NotNull
+* - is_verified: boolean, NotNull
+* - pass: String, NotNull
+* - tweets: List<Tweets>, foreign key for tweets table
+* - age: int, Transient, used for age verification
+*
+* Constructors:
+* - User(): Empty constructor used with JPA
+* - User(
+*       String email, String name, LocalDate dob, boolean is_verified, String pass
+*   ): Create bases user with all needed fields
+*
+* Methods:
+* - Getters & Setters for all attributes
+* - ToString: return the user as a string
+* */
 @Entity
 @Table
 public class User {

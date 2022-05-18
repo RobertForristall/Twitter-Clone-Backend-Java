@@ -36,7 +36,9 @@ public class Tweet {
 
     private Date datePosted;
 
-    private long originalPosterId;
+    private String originalPosterEmail;
+
+    private String fileKey;
 
     @ManyToOne
     @JoinColumn(name = "posterId")
@@ -49,15 +51,16 @@ public class Tweet {
     public Tweet() {
     }
 
-    public Tweet(long posterId, String msg, String sharedContent, int likes, int retweets, Date datePosted, long original_poster, String email) {
+    public Tweet(long posterId, String msg, String sharedContent, int likes, int retweets, Date datePosted, String originalPosterEmail, String email, String fileKey) {
         //this.posterId = posterId;
         this.msg = msg;
         this.sharedContent = sharedContent;
         this.likes = likes;
         this.retweets = retweets;
         this.datePosted = datePosted;
-        this.originalPosterId = original_poster;
+        this.originalPosterEmail = originalPosterEmail;
         this.email = email;
+        this.fileKey = fileKey;
     }
 
     public long getId() {
@@ -108,12 +111,12 @@ public class Tweet {
         this.datePosted = datePosted;
     }
 
-    public long getOriginalPoster() {
-        return originalPosterId;
+    public String getOriginalPoster() {
+        return originalPosterEmail;
     }
 
-    public void setOriginalPoster(long original_poster) {
-        this.originalPosterId = original_poster;
+    public void setOriginalPoster(String original_poster) {
+        this.originalPosterEmail = original_poster;
     }
 
     public String getEmail() {
@@ -122,6 +125,14 @@ public class Tweet {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getFileKey() {
+        return fileKey;
+    }
+
+    public void setFileKey(String fileKey) {
+        this.fileKey = fileKey;
     }
 
     @Override
@@ -134,7 +145,7 @@ public class Tweet {
                 ", likes=" + likes +
                 ", retweets=" + retweets +
                 ", datePosted=" + datePosted +
-                ", originalPosterId=" + originalPosterId +
+                ", originalPosterEmail=" + originalPosterEmail +
                 '}';
     }
 }

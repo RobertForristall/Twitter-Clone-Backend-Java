@@ -24,8 +24,9 @@ public class TweetConfig {
               0,
               0,
               new Date(),
-              1,
-                    "tester@test.com"
+              "tester@test.com",
+                    "tester@test.com",
+                    null
             );
 
             Tweet tweet2 = new Tweet(
@@ -38,8 +39,9 @@ public class TweetConfig {
                     10,
                     5,
                     new Date(),
-                    1,
-                    "tester@test.com"
+                    "tester@test.com",
+                    "tester@test.com",
+                    "test-key"
             );
 
             tweets.add(tweet);

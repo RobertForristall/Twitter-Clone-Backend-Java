@@ -1,3 +1,7 @@
+/*
+* Written by Robert Forristall
+* */
+
 package com.shareclub.TwitterCloneBackendJava.user;
 
 import org.springframework.boot.CommandLineRunner;
@@ -6,6 +10,15 @@ import org.springframework.context.annotation.Configuration;
 
 import java.time.LocalDate;
 import java.time.Month;
+
+/*
+* User Database Configuration
+* - Used to load starting/testing data into the database
+*
+* commandLineRunner: Uses the user repository interface and a
+*   generated user to save a testing user into the database
+*
+* */
 
 @Configuration
 public class UserConfig {

@@ -1,10 +1,14 @@
 package com.shareclub.TwitterCloneBackendJava.tweet;
 
 import com.shareclub.TwitterCloneBackendJava.s3.S3;
+import com.shareclub.TwitterCloneBackendJava.wrappers.TweetWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -72,20 +76,31 @@ public class TweetService {
 
     }
 
-    public void saveTweet(Tweet tweet) {
+    public void saveTweet(TweetWrapper tweetWrapper) {
+
+        Tweet tweet = tweetWrapper.getTweet();
+
+        //MultipartFile file = tweetWrapper.getFile();
 
         // Check for all necessary fields
         /*if (tweet.getPosterId() <= 0) {
             throw new IllegalStateException("Must provide a valid poster id");
         }*/
-        if (tweet.getMsg().length() == 0 && tweet.getSharedContent() == "None"){
+        if (tweet.getMsg().length() == 0 && tweet.getSharedContent().equals("None")){
             throw new IllegalStateException("A tweet can not be empty. Please provide some content");
         }
-        if (tweet.getOriginalPoster() <= 0) {
-            throw new IllegalStateException("Must provide the original poster's id");
+        if (!tweet.getSharedContent().equals("None") && tweet.getFileKey().length() == 0) {
+            throw new IllegalStateException("A tweet with content should have a contentKey");
+        }
+        if (tweet.getOriginalPoster().length() == 0) {
+            throw new IllegalStateException("Must provide the original poster's email");
         }
 
         tweetRepository.save(tweet);
+
+        if (tweet.getSharedContent().equals("Image")) {
+            //s3.uploadFile(tweet.getFileKey(), file);
+        }
 
     }
 

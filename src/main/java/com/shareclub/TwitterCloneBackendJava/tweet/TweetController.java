@@ -1,5 +1,5 @@
 package com.shareclub.TwitterCloneBackendJava.tweet;
-
+import com.shareclub.TwitterCloneBackendJava.wrappers.TweetWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +26,10 @@ public class TweetController {
     public List<Tweet> getAllTweetsByEmail(@RequestParam String email) {return tweetService.getAllTweetsByEmail(email);}
 
     @PostMapping(path = "add")
-    public void saveTweet(@RequestBody Tweet tweet) {tweetService.saveTweet(tweet);}
+    public void saveTweet(@RequestBody TweetWrapper tweetWrapper) {
+
+        tweetService.saveTweet(tweetWrapper);
+
+    }
 
 }

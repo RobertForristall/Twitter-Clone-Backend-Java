@@ -1,13 +1,13 @@
 package com.shareclub.TwitterCloneBackendJava.s3;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.*;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -27,9 +27,9 @@ public class S3 {
 
     private final static String test_file_path = "C:\\Users\\redth\\Desktop\\me.jpg";
 
-    private Bucket bucket;
+    private final Bucket bucket;
 
-    private S3Client s3;
+    private final S3Client s3;
 
     public S3 () {
         this.s3 = S3Client.builder().region(region).build();
@@ -55,8 +55,27 @@ public class S3 {
         return false;
     }
 
-    private static void uploadFile () {
+    public String uploadFile (String key, MultipartFile file) {
+        try {
+            Map<String, String> metadata = new HashMap<>();
+            metadata.put("x-amz-meta-myVal", "test");
 
+            PutObjectRequest request = PutObjectRequest.builder()
+                    .bucket(bucketName)
+                    .key(key)
+                    .metadata(metadata)
+                    .build();
+
+            PutObjectResponse response = s3.putObject(request, RequestBody.fromBytes(file.getBytes()));
+
+            return response.eTag();
+        }catch (S3Exception e) {
+            log.error(e.toString());
+        }catch (IOException e) {
+            log.error(e.toString());
+        }
+
+        return "Error";
     }
 
     private byte[] getFile(String filePath) {
@@ -65,6 +84,30 @@ public class S3 {
 
         try {
             File file = new File(filePath);
+            bytesArray = new byte[(int) file.length()];
+            fileInputStream = new FileInputStream(file);
+            fileInputStream.read(bytesArray);
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (fileInputStream != null) {
+                try {
+                    fileInputStream.close();
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return bytesArray;
+    }
+
+    private byte[] getByteArray (File file) {
+        FileInputStream fileInputStream = null;
+        byte[] bytesArray = null;
+
+        try {
             bytesArray = new byte[(int) file.length()];
             fileInputStream = new FileInputStream(file);
             fileInputStream.read(bytesArray);
@@ -115,6 +158,7 @@ public class S3 {
             byte[] response = s3.getObject(request).readAllBytes();
             ByteArrayInputStream bis = new ByteArrayInputStream(response);
             BufferedImage image = ImageIO.read(bis);
+            return image;
         }catch (IOException e) {
             e.printStackTrace();
         }
